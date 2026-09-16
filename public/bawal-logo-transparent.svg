@@ -1,0 +1,93 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" width="100%" height="100%">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,900&amp;family=Space+Grotesk:wght@700&amp;display=swap');
+      .bawal-text-tr {
+        font-family: 'Syne', 'Montserrat', 'Arial Black', -apple-system, sans-serif;
+        font-weight: 900;
+        font-style: italic;
+        text-transform: uppercase;
+        letter-spacing: -0.02em;
+      }
+      .tagline-text-tr {
+        font-family: 'Space Grotesk', 'Plus Jakarta Sans', -apple-system, sans-serif;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+      }
+    </style>
+  </defs>
+
+  <g transform="translate(300, 200)">
+    <!-- Dual overlapping outer orbital ellipses -->
+    <!-- Ellipse 1 (tilted slightly -5 deg) -->
+    <ellipse cx="0" cy="0" rx="260" ry="155" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="3.5" 
+      transform="rotate(-5)" />
+
+    <!-- Ellipse 2 (tilted slightly +5 deg) -->
+    <ellipse cx="0" cy="0" rx="260" ry="155" 
+      fill="none" 
+      stroke="currentColor" 
+      stroke-width="3.5" 
+      transform="rotate(5)" />
+
+    <!-- 4-point sparkle star above BAWAL -->
+    <path d="M 0,-118 
+             C 2,-96 16,-82 38,-80 
+             C 16,-78 2,-64 0,-42 
+             C -2,-64 -16,-78 -38,-80 
+             C -16,-82 -2,-96 0,-118 Z" 
+          fill="currentColor" />
+
+    <!-- BAWAL Wordmark with slanted bold geometry -->
+    <g transform="translate(0, 24) skewX(-14)">
+      <text x="0" y="0" 
+            text-anchor="middle" 
+            fill="currentColor" 
+            class="bawal-text-tr" 
+            font-size="94" 
+            transform="scale(1.18, 0.96)">BAWAL</text>
+    </g>
+
+    <!-- Subtitle: SOCIAL / PARTIES / PEOPLE -->
+    <text x="0" y="68" 
+          text-anchor="middle" 
+          fill="currentColor" 
+          class="tagline-text-tr" 
+          font-size="14.5">SOCIAL &nbsp;/ &nbsp;PARTIES &nbsp;/ &nbsp;PEOPLE</text>
+
+    <!-- Bottom 3 Icons: Cocktail Glass, Group of People, Wireframe Globe -->
+    <g transform="translate(0, 108)" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+      
+      <!-- 1. Martini / Cocktail Glass -->
+      <g transform="translate(-64, 0)">
+        <polygon points="-10,-10 10,-10 0,2" stroke-width="1.8" fill="none" />
+        <line x1="-3" y1="-13" x2="3" y2="-5" stroke-width="1.6" />
+        <line x1="0" y1="2" x2="0" y2="10" stroke-width="1.8" />
+        <line x1="-7" y1="10" x2="7" y2="10" stroke-width="1.8" />
+      </g>
+
+      <!-- 2. People (Group of 3 avatars) -->
+      <g transform="translate(0, 0)">
+        <circle cx="0" cy="-6" r="3.2" stroke-width="1.8" />
+        <path d="M -7,8 C -7,2 -4,0 0,0 C 4,0 7,2 7,8 Z" stroke-width="1.8" />
+        <circle cx="-9.5" cy="-4" r="2.7" stroke-width="1.6" />
+        <path d="M -15,8 C -15,3 -12,2 -8,2" stroke-width="1.6" />
+        <circle cx="9.5" cy="-4" r="2.7" stroke-width="1.6" />
+        <path d="M 8,2 C 12,2 15,3 15,8" stroke-width="1.6" />
+      </g>
+
+      <!-- 3. Wireframe Globe -->
+      <g transform="translate(64, 0)">
+        <circle cx="0" cy="0" r="10.5" stroke-width="1.8" />
+        <line x1="-10.5" y1="0" x2="10.5" y2="0" stroke-width="1.4" />
+        <ellipse cx="0" cy="0" rx="5.2" ry="10.5" stroke-width="1.4" />
+        <path d="M -8.5,-5 C -4,-3 4,-3 8.5,-5" stroke-width="1.2" />
+        <path d="M -8.5,5 C -4,3 4,3 8.5,5" stroke-width="1.2" />
+      </g>
+
+    </g>
+  </g>
+</svg>

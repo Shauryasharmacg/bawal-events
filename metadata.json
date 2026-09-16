@@ -1,0 +1,6 @@
+{
+  "name": "BAWAL — Weekends Hit Different",
+  "description": "Premium social and entertainment event platform for modern Indian social experiences, bowling socials, championships, live music, and unique weekend gatherings.",
+  "requestFramePermissions": ["camera"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

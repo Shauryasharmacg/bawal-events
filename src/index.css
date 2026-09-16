@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@layer base {
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background-color: #02040D;
+    color: #E2E8F0;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background-color: #0038FF;
+    color: #FFFFFF;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #printable-ticket, #printable-ticket * {
+    visibility: visible;
+  }
+  #printable-ticket {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0 auto;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
