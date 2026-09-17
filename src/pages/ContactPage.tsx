@@ -1,11 +1,33 @@
-import React, { useState } from 'react';
-import { Mail, Instagram, MapPin, Send, CheckCircle2 } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Mail, Instagram, MapPin, Send, CheckCircle2, Phone, MessageCircle } from 'lucide-react';
 
 export const ContactPage: React.FC = () => {
   const [sent, setSent] = useState(false);
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [supportEmail, setSupportEmail] = useState('tickets@bawal.social');
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchPlatformSettings() {
+      try {
+        const res = await fetch('/api/admin/settings');
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data?.settings?.support_email) {
+            setSupportEmail(data.settings.support_email);
+          }
+        }
+      } catch {
+        // Fallback to default state
+      }
+    }
+    fetchPlatformSettings();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,11 +75,48 @@ export const ContactPage: React.FC = () => {
 
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-xl bg-[#0B1538] text-[#3888FF] flex items-center justify-center shrink-0 border border-[#1E3A8A]">
+                <Phone size={18} />
+              </div>
+              <div>
+                <span className="text-gray-500 uppercase text-[10px] block">Phone Support</span>
+                <a
+                  href="tel:9540467377"
+                  className="font-bold text-white hover:text-[#3888FF] transition-colors"
+                >
+                  +91 9540467377
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#0B1538] text-[#25D366] flex items-center justify-center shrink-0 border border-[#1E3A8A]">
+                <MessageCircle size={18} />
+              </div>
+              <div>
+                <span className="text-gray-500 uppercase text-[10px] block">WhatsApp</span>
+                <a
+                  href="https://wa.me/919811553213"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-bold text-white hover:text-[#25D366] transition-colors"
+                >
+                  +91 9811553213
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#0B1538] text-[#3888FF] flex items-center justify-center shrink-0 border border-[#1E3A8A]">
                 <Mail size={18} />
               </div>
               <div>
                 <span className="text-gray-500 uppercase text-[10px] block">Email Support</span>
-                <span className="font-bold text-white">tickets@bawal.social</span>
+                <a
+                  href={`mailto:${supportEmail}`}
+                  className="font-bold text-white hover:text-[#3888FF] transition-colors"
+                >
+                  {supportEmail}
+                </a>
               </div>
             </div>
 
