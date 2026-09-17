@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Instagram, ArrowUpRight, ShieldCheck, Mail, MapPin, Phone, MessageCircle } from 'lucide-react';
 import { BawalLogo } from './BawalLogo.js';
 
@@ -7,6 +7,29 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = ({ navigate }) => {
+  const [supportEmail, setSupportEmail] = useState('tickets@bawal.social');
+
+  useEffect(() => {
+    let isMounted = true;
+    async function fetchPlatformSettings() {
+      try {
+        const res = await fetch('/api/admin/settings');
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data?.settings?.support_email) {
+            setSupportEmail(data.settings.support_email);
+          }
+        }
+      } catch {
+        // Fallback to default email on network issue
+      }
+    }
+    fetchPlatformSettings();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
   return (
     <footer className="bg-[#00020A] border-t border-[#0E1B4D] text-[#A0A0A8] pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -110,8 +133,8 @@ export const Footer: React.FC<FooterProps> = ({ navigate }) => {
 
               <div className="flex items-center gap-2 text-xs">
                 <Mail size={14} className="text-[#3888FF] shrink-0" />
-                <a href="mailto:tickets@bawal.social" className="text-gray-300 hover:text-white transition-colors">
-                  tickets@bawal.social
+                <a href={`mailto:${supportEmail}`} className="text-gray-300 hover:text-white transition-colors">
+                  {supportEmail}
                 </a>
               </div>
 

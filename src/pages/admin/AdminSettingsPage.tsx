@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
-import { ShieldCheck, Database, Sliders, CheckCircle2, Save } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Database, Sliders, CheckCircle2, Save } from 'lucide-react';
 
 export const AdminSettingsPage: React.FC = () => {
   const [saved, setSaved] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [saving, setSaving] = useState(false);
   const [brandName, setBrandName] = useState('BAWAL');
   const [tagline, setTagline] = useState('Weekends Hit Different.');
   const [email, setEmail] = useState('tickets@bawal.social');
@@ -10,11 +12,98 @@ export const AdminSettingsPage: React.FC = () => {
   const [currency, setCurrency] = useState('INR (₹)');
   const [earlyBirdCap, setEarlyBirdCap] = useState(20);
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    let isMounted = true;
+    async function loadSettings() {
+      try {
+        const token =
+          localStorage.getItem('token') ||
+          localStorage.getItem('auth_token') ||
+          localStorage.getItem('admin_token') ||
+          '';
+
+        const res = await fetch('/api/admin/settings', {
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { Authorization: `Bearer ${token}` } : {}),
+          },
+          credentials: 'include',
+        });
+
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data?.settings) {
+            if (data.settings.brand_name) setBrandName(data.settings.brand_name);
+            if (data.settings.brand_tagline) setTagline(data.settings.brand_tagline);
+            if (data.settings.support_email) setEmail(data.settings.support_email);
+            if (data.settings.instagram_handle) setInstagram(data.settings.instagram_handle);
+            if (data.settings.default_early_bird_cap) setEarlyBirdCap(data.settings.default_early_bird_cap);
+            if (data.settings.currency) setCurrency(data.settings.currency);
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load settings from server, using defaults:', err);
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+
+    loadSettings();
+    return () => {
+      isMounted = false;
+    };
+  }, []);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSaved(true);
-    setTimeout(() => setSaved(false), 3000);
+    setSaving(true);
+    try {
+      const token =
+        localStorage.getItem('token') ||
+        localStorage.getItem('auth_token') ||
+        localStorage.getItem('admin_token') ||
+        '';
+
+      const res = await fetch('/api/admin/settings', {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          brandName,
+          tagline,
+          email,
+          instagram,
+          earlyBirdCap,
+        }),
+      });
+
+      const data = await res.json().catch(() => null);
+
+      if (!res.ok) {
+        throw new Error(data?.error || `Server returned status ${res.status}`);
+      }
+
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    } catch (err: any) {
+      console.error('Failed to save settings:', err);
+      alert(`Failed to save settings: ${err.message}`);
+    } finally {
+      setSaving(false);
+    }
   };
+
+  if (loading) {
+    return (
+      <div className="p-10 flex items-center justify-center text-gray-400 gap-2">
+        <div className="w-5 h-5 border-2 border-[#0038FF] border-t-transparent rounded-full animate-spin" />
+        <span>Loading configuration...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="p-6 lg:p-10 space-y-8 max-w-4xl">
@@ -143,10 +232,11 @@ export const AdminSettingsPage: React.FC = () => {
         <div className="pt-4 flex justify-end">
           <button
             type="submit"
-            className="px-6 py-3 rounded-xl bg-[#0038FF] hover:bg-[#002DD6] text-white font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#0038FF]/20"
+            disabled={saving}
+            className="px-6 py-3 rounded-xl bg-[#0038FF] hover:bg-[#002DD6] text-white font-bold uppercase tracking-wider flex items-center gap-2 shadow-lg shadow-[#0038FF]/20 disabled:opacity-50"
           >
             <Save size={15} />
-            Save Platform Settings
+            {saving ? 'Saving...' : 'Save Platform Settings'}
           </button>
         </div>
       </form>

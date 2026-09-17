@@ -398,3 +398,74 @@ adminRouter.delete('/sponsors/:id', async (req: Request, res: Response) => {
     res.status(500).json({ error: 'Failed to delete sponsor' });
   }
 });
+
+// Platform Configuration & Settings
+adminRouter.get('/settings', async (req: Request, res: Response) => {
+  try {
+    const db = await getDbClient();
+
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS platform_settings (
+        id VARCHAR(50) PRIMARY KEY DEFAULT 'default',
+        brand_name VARCHAR(100) DEFAULT 'BAWAL',
+        brand_tagline VARCHAR(255) DEFAULT 'Weekends Hit Different.',
+        support_email VARCHAR(255) DEFAULT 'tickets@bawal.social',
+        instagram_handle VARCHAR(100) DEFAULT '@bawal.social',
+        default_early_bird_cap INT DEFAULT 20,
+        currency VARCHAR(50) DEFAULT 'INR (₹)',
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    let result = await db.query(`SELECT * FROM platform_settings WHERE id = 'default'`);
+    if (result.rows.length === 0) {
+      await db.query(`
+        INSERT INTO platform_settings (id, brand_name, brand_tagline, support_email, instagram_handle, default_early_bird_cap, currency)
+        VALUES ('default', 'BAWAL', 'Weekends Hit Different.', 'tickets@bawal.social', '@bawal.social', 20, 'INR (₹)')
+      `);
+      result = await db.query(`SELECT * FROM platform_settings WHERE id = 'default'`);
+    }
+
+    res.json({ settings: result.rows[0] });
+  } catch (err: any) {
+    console.error('Error fetching platform settings:', err);
+    res.status(500).json({ error: 'Failed to fetch platform settings' });
+  }
+});
+
+adminRouter.put('/settings', async (req: Request, res: Response) => {
+  try {
+    const { brandName, tagline, email, instagram, earlyBirdCap } = req.body;
+    const db = await getDbClient();
+
+    await db.query(`
+      CREATE TABLE IF NOT EXISTS platform_settings (
+        id VARCHAR(50) PRIMARY KEY DEFAULT 'default',
+        brand_name VARCHAR(100) DEFAULT 'BAWAL',
+        brand_tagline VARCHAR(255) DEFAULT 'Weekends Hit Different.',
+        support_email VARCHAR(255) DEFAULT 'tickets@bawal.social',
+        instagram_handle VARCHAR(100) DEFAULT '@bawal.social',
+        default_early_bird_cap INT DEFAULT 20,
+        currency VARCHAR(50) DEFAULT 'INR (₹)',
+        updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+      )
+    `);
+
+    await db.query(`
+      INSERT INTO platform_settings (id, brand_name, brand_tagline, support_email, instagram_handle, default_early_bird_cap, updated_at)
+      VALUES ('default', $1, $2, $3, $4, $5, CURRENT_TIMESTAMP)
+      ON CONFLICT (id) DO UPDATE 
+      SET brand_name = $1,
+          brand_tagline = $2,
+          support_email = $3,
+          instagram_handle = $4,
+          default_early_bird_cap = $5,
+          updated_at = CURRENT_TIMESTAMP
+    `, [brandName, tagline, email, instagram, earlyBirdCap || 20]);
+
+    res.json({ success: true, message: 'Platform settings saved successfully' });
+  } catch (err: any) {
+    console.error('Error saving platform settings:', err);
+    res.status(500).json({ error: 'Failed to save platform settings' });
+  }
+});
