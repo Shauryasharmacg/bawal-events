@@ -265,7 +265,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ slug, naviga
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-gray-300">
-                  Phone (WhatsApp) <span className="text-[#3888FF]">*</span>
+                  Phone <span className="text-[#3888FF]">*</span>
                 </label>
                 <div className="flex">
                   <span className="inline-flex items-center px-3 rounded-l-xl border border-r-0 border-[#132252] bg-[#0B1538] text-gray-400 text-xs">

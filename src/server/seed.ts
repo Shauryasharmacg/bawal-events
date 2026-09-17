@@ -8,10 +8,11 @@ export async function seedDatabase() {
   // Check if Event #001 already exists
   const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
   if (existingEvent.rows.length > 0) {
-    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹600 & ₹700...');
-    await db.query(`UPDATE ticket_types SET price = 600 WHERE id = 'tt_early_bird_001'`);
-    await db.query(`UPDATE ticket_types SET price = 700 WHERE id = 'tt_regular_001'`);
-    console.log('[SEED] Ticket prices successfully updated!');
+    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699 and setting hero image...');
+    await db.query(`UPDATE events SET hero_image = '/bowling-hero.jpg' WHERE slug = 'bawal-001-the-bowling-social'`);
+    await db.query(`UPDATE ticket_types SET price = 599 WHERE id = 'tt_early_bird_001'`);
+    await db.query(`UPDATE ticket_types SET price = 699 WHERE id = 'tt_regular_001'`);
+    console.log('[SEED] Hero image and ticket prices (₹599 / ₹699) successfully updated!');
     return;
   }
 
@@ -44,6 +45,7 @@ export async function seedDatabase() {
   const rules = [
     'Please arrive 15 minutes before the 11:00 AM start time for team assignments.',
     'Bowling shoes will be provided at the venue (socks are mandatory).',
+    'Strictly 18+ event. Valid government photo ID is required at the entry check-in counter.',
     'Respect other participants and maintain good sportsmanship.',
     'Outside food or beverages are strictly not permitted.',
   ];
@@ -100,18 +102,18 @@ export async function seedDatabase() {
       'Anyone who wants to meet new people, enjoy music, play bowling, take part in challenges and experience a different kind of social event. You can come with your friends or join individually and meet new people at the event.',
       100, // Total capacity
       'PUBLISHED',
-      'https://images.unsplash.com/photo-1545809074-59472b3f5ecc?auto=format&fit=crop&w=1600&q=80',
+      '/bowling-hero.jpg',
       JSON.stringify(gallery),
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9961601053424!2d77.10842067640236!3d28.63220557566415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0322303530c3%3A0x628045610b271d43!2sPacific%20Mall%20Tagore%20Garden!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin',
     ]
   );
 
-  // Ticket types: Early Bird Pass (20 passes @ ₹600), Regular Pass (80 passes @ ₹700)
+  // Ticket types: Early Bird Pass (20 passes @ ₹599), Regular Pass (80 passes @ ₹699)
   await db.query(
     `INSERT INTO ticket_types (id, event_id, name, price, total_available, sold_count, perks, sort_order, is_active)
      VALUES 
-     ($1, $2, 'Early Bird Pass', 600, 20, 0, $3, 1, true),
-     ($4, $2, 'Regular Pass', 700, 80, 0, $5, 2, true)`,
+     ($1, $2, 'Early Bird Pass', 599, 20, 0, $3, 1, true),
+     ($4, $2, 'Regular Pass', 699, 80, 0, $5, 2, true)`,
     [
       'tt_early_bird_001',
       eventId,

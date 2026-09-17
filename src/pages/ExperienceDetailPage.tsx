@@ -106,7 +106,7 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ slug
             {isEarlyBirdActive && !isSoldOut && (
               <span className="px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-[#0038FF] text-white font-black text-[10px] sm:text-xs tracking-wider flex items-center gap-1.5 shadow-lg shadow-[#0038FF]/30 animate-pulse">
                 <Flame size={12} />
-                EARLY BIRD ₹600 ({earlyBirdTier.remainingCount} LEFT)
+                EARLY BIRD ₹599 ({earlyBirdTier.remainingCount} LEFT)
               </span>
             )}
             <span className="px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-[#060B22] border border-[#132252] text-[#60A5FA] text-[10px] sm:text-xs font-bold flex items-center gap-1.5">
@@ -387,11 +387,11 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ slug
                 <div className="p-3.5 rounded-xl bg-[#02040D] border border-[#132252] space-y-1.5 text-xs">
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Early Bird Pass:</span>
-                    <span className="font-bold text-white">₹500 (20 passes total)</span>
+                    <span className="font-bold text-white">₹599 (20 passes total)</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-gray-300">Regular Pass:</span>
-                    <span className="font-bold text-white">₹600 (After Early Bird)</span>
+                    <span className="font-bold text-white">₹699 (After Early Bird)</span>
                   </div>
                 </div>
 
