@@ -91,7 +91,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               className="w-full sm:w-auto min-h-[48px] px-6 sm:px-8 py-3.5 sm:py-4 rounded-2xl bg-[#0038FF] hover:bg-[#002DD6] text-white font-extrabold text-xs sm:text-sm tracking-wider uppercase shadow-2xl shadow-[#0038FF]/30 hover:-translate-y-0.5 active:translate-y-0 transition-all flex items-center justify-center gap-2"
             >
               <Zap size={16} />
-              Register Now (Early Bird ₹500)
+              Register Now (Early Bird ₹600)
             </button>
             <button
               onClick={() => navigate('/experiences')}

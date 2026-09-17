@@ -66,7 +66,6 @@ export const AdminEventsPage: React.FC<AdminEventsPageProps> = ({ navigate }) =>
           about: description,
           highlights: ['Bowling Championship', 'Live Music', 'Free Mocktail', 'Nitro Bowling Experience'],
           whatsIncluded: ['1 Bowling Game', '1 Free Mocktail', 'Tournament Entry', 'Digital QR Ticket'],
-          rules: ['Socks mandatory', '18+ age limit', 'Govt ID required'],
           faqs: [],
           status: 'PUBLISHED',
           ticketTypes: [

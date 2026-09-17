@@ -23,7 +23,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
     <nav className="sticky top-0 z-50 bg-[#02040D]/95 backdrop-blur-md border-b border-[#0E1B4D]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          
+
           {/* Official Brand Logo */}
           <div className="cursor-pointer shrink-0 py-1" onClick={() => handleNav('/')}>
             <BawalLogo variant="horizontal" size="md" />
@@ -33,9 +33,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
           <div className="hidden md:flex items-center gap-7">
             <button
               onClick={() => handleNav('/experiences')}
-              className={`text-sm font-medium transition-colors ${
-                currentPath.startsWith('/experiences') ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
-              }`}
+              className={`text-sm font-medium transition-colors ${currentPath.startsWith('/experiences') ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
+                }`}
             >
               Experiences
             </button>
@@ -53,17 +52,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
             </button>
             <button
               onClick={() => handleNav('/faq')}
-              className={`text-sm font-medium transition-colors ${
-                currentPath === '/faq' ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
-              }`}
+              className={`text-sm font-medium transition-colors ${currentPath === '/faq' ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
+                }`}
             >
               FAQ
             </button>
             <button
               onClick={() => handleNav('/contact')}
-              className={`text-sm font-medium transition-colors ${
-                currentPath === '/contact' ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
-              }`}
+              className={`text-sm font-medium transition-colors ${currentPath === '/contact' ? 'text-[#3888FF] font-semibold' : 'text-[#E2E8F0] hover:text-white'
+                }`}
             >
               Contact
             </button>
@@ -181,9 +178,8 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
           <div className="space-y-1">
             <button
               onClick={() => handleNav('/experiences')}
-              className={`w-full flex items-center justify-between py-3 px-3 rounded-xl text-sm font-semibold transition-colors ${
-                currentPath.startsWith('/experiences') ? 'bg-[#0038FF]/20 text-[#60A5FA]' : 'text-white hover:bg-[#060B22]'
-              }`}
+              className={`w-full flex items-center justify-between py-3 px-3 rounded-xl text-sm font-semibold transition-colors ${currentPath.startsWith('/experiences') ? 'bg-[#0038FF]/20 text-[#60A5FA]' : 'text-white hover:bg-[#060B22]'
+                }`}
             >
               <span>Upcoming Experiences</span>
               <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#0038FF] text-white font-mono">LIVE</span>
@@ -202,17 +198,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
             </button>
             <button
               onClick={() => handleNav('/faq')}
-              className={`w-full text-left py-3 px-3 rounded-xl text-sm font-medium transition-colors ${
-                currentPath === '/faq' ? 'bg-[#0038FF]/20 text-[#60A5FA] font-semibold' : 'text-gray-300 hover:text-white hover:bg-[#060B22]'
-              }`}
+              className={`w-full text-left py-3 px-3 rounded-xl text-sm font-medium transition-colors ${currentPath === '/faq' ? 'bg-[#0038FF]/20 text-[#60A5FA] font-semibold' : 'text-gray-300 hover:text-white hover:bg-[#060B22]'
+                }`}
             >
               Frequently Asked Questions
             </button>
             <button
               onClick={() => handleNav('/contact')}
-              className={`w-full text-left py-3 px-3 rounded-xl text-sm font-medium transition-colors ${
-                currentPath === '/contact' ? 'bg-[#0038FF]/20 text-[#60A5FA] font-semibold' : 'text-gray-300 hover:text-white hover:bg-[#060B22]'
-              }`}
+              className={`w-full text-left py-3 px-3 rounded-xl text-sm font-medium transition-colors ${currentPath === '/contact' ? 'bg-[#0038FF]/20 text-[#60A5FA] font-semibold' : 'text-gray-300 hover:text-white hover:bg-[#060B22]'
+                }`}
             >
               Contact Support
             </button>
@@ -259,6 +253,15 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
               </button>
             )}
 
+            {admin && (
+              <button
+                onClick={() => handleNav('/admin/dashboard')}
+                className="w-full min-h-[44px] py-2.5 rounded-xl bg-[#0038FF]/20 border border-[#0038FF]/40 text-[#60A5FA] font-semibold text-center text-xs flex items-center justify-center gap-1.5"
+              >
+                <ShieldAlert size={14} />
+                Staff / Organizer Portal
+              </button>
+            )}
 
             <button
               onClick={() => handleNav('/experiences/bawal-001-the-bowling-social')}

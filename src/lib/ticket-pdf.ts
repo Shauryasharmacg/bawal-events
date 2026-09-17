@@ -122,7 +122,6 @@ export function downloadTicketPdf(ticket: Ticket) {
   doc.setFontSize(7);
   doc.setFont('helvetica', 'normal');
   doc.text('Present this digital QR pass at the entrance desk for check-in.', 52.5, 201, { align: 'center' });
-  doc.text('@bawal.social  •  Strictly 18+  •  Socks Mandatory', 52.5, 205, { align: 'center' });
 
   // Save the PDF
   doc.save(`BAWAL_Ticket_${ticket.registrationCode}.pdf`);

@@ -8,7 +8,10 @@ export async function seedDatabase() {
   // Check if Event #001 already exists
   const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
   if (existingEvent.rows.length > 0) {
-    console.log('[SEED] Event #001 already exists in database.');
+    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹600 & ₹700...');
+    await db.query(`UPDATE ticket_types SET price = 600 WHERE id = 'tt_early_bird_001'`);
+    await db.query(`UPDATE ticket_types SET price = 700 WHERE id = 'tt_regular_001'`);
+    console.log('[SEED] Ticket prices successfully updated!');
     return;
   }
 
@@ -41,7 +44,6 @@ export async function seedDatabase() {
   const rules = [
     'Please arrive 15 minutes before the 11:00 AM start time for team assignments.',
     'Bowling shoes will be provided at the venue (socks are mandatory).',
-    'Strictly 18+ event. Valid government photo ID is required at the entry check-in counter.',
     'Respect other participants and maintain good sportsmanship.',
     'Outside food or beverages are strictly not permitted.',
   ];
@@ -104,17 +106,17 @@ export async function seedDatabase() {
     ]
   );
 
-  // Ticket types: Early Bird Pass (20 passes @ ₹500), Regular Pass (80 passes @ ₹600)
+  // Ticket types: Early Bird Pass (20 passes @ ₹600), Regular Pass (80 passes @ ₹700)
   await db.query(
     `INSERT INTO ticket_types (id, event_id, name, price, total_available, sold_count, perks, sort_order, is_active)
      VALUES 
-     ($1, $2, 'Early Bird Pass', 500, 20, 0, $3, 1, true),
-     ($4, $2, 'Regular Pass', 600, 80, 0, $5, 2, true)`,
+     ($1, $2, 'Early Bird Pass', 600, 20, 0, $3, 1, true),
+     ($4, $2, 'Regular Pass', 700, 80, 0, $5, 2, true)`,
     [
       'tt_early_bird_001',
       eventId,
       JSON.stringify([
-        'Early Bird discounted entry (₹100 OFF)',
+        'Early Bird discounted entry',
         'Full Bowling Championship Participation',
         'Animated Nitro Bowling Experience',
         '1 Free Craft Mocktail',

@@ -106,7 +106,7 @@ export const ExperienceDetailPage: React.FC<ExperienceDetailPageProps> = ({ slug
             {isEarlyBirdActive && !isSoldOut && (
               <span className="px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-[#0038FF] text-white font-black text-[10px] sm:text-xs tracking-wider flex items-center gap-1.5 shadow-lg shadow-[#0038FF]/30 animate-pulse">
                 <Flame size={12} />
-                EARLY BIRD ₹500 ({earlyBirdTier.remainingCount} LEFT)
+                EARLY BIRD ₹600 ({earlyBirdTier.remainingCount} LEFT)
               </span>
             )}
             <span className="px-3 py-0.5 sm:px-3.5 sm:py-1 rounded-full bg-[#060B22] border border-[#132252] text-[#60A5FA] text-[10px] sm:text-xs font-bold flex items-center gap-1.5">

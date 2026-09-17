@@ -83,7 +83,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ slug, naviga
     if (!name.trim()) return setError('Please enter your full name.');
     if (!email.trim() || !email.includes('@')) return setError('Please enter a valid email address.');
     if (!phone.trim() || phone.replace(/\D/g, '').length < 10) return setError('Please enter a valid 10-digit mobile number.');
-    if (!age || Number(age) < 18) return setError('You must be at least 18 years old to attend BAWAL experiences.');
+    if (!age || Number(age) < 0) return setError('You must be at least 0 years old to attend BAWAL experiences.');
     if (!selectedPass) return setError('Please select an entry pass tier.');
 
     setSubmitting(true);
@@ -285,7 +285,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ slug, naviga
 
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-gray-300">
-                  Age <span className="text-[#3888FF]">* (18+)</span>
+                  Age <span className="text-[#3888FF]">*</span>
                 </label>
                 <input
                   type="number"
