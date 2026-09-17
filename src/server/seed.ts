@@ -213,9 +213,9 @@ export async function seedDatabase() {
     );
   }
 
-  // Default Admin User: admin@bawal.social / BawalAdmin@2026
+  // Default Admin User: admin@bawal.social / Bawaln@2026
   const adminEmail = 'admin@bawal.social';
-  const adminPass = process.env.ADMIN_DEFAULT_PASSWORD || 'BawalAdmin@2026';
+  const adminPass = process.env.ADMIN_DEFAULT_PASSWORD || 'Bawal@2026';
   const hashedPass = hashPassword(adminPass);
 
   await db.query(

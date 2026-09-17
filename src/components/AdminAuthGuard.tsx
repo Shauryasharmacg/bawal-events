@@ -10,7 +10,7 @@ interface AdminAuthGuardProps {
 export const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ navigate }) => {
   const { loginAdmin, loginAsDemoAdmin } = useAuth();
   const [email, setEmail] = useState('admin@bawal.social');
-  const [password, setPassword] = useState('BawalAdmin@2026');
+  const [password, setPassword] = useState('Bawal@2026');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
