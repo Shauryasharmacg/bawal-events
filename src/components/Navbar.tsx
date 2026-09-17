@@ -259,15 +259,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
               </button>
             )}
 
-            {admin && (
-              <button
-                onClick={() => handleNav('/admin/dashboard')}
-                className="w-full min-h-[44px] py-2.5 rounded-xl bg-[#0038FF]/20 border border-[#0038FF]/40 text-[#60A5FA] font-semibold text-center text-xs flex items-center justify-center gap-1.5"
-              >
-                <ShieldAlert size={14} />
-                Staff / Organizer Portal
-              </button>
-            )}
 
             <button
               onClick={() => handleNav('/experiences/bawal-001-the-bowling-social')}
