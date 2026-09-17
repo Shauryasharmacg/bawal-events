@@ -1,20 +1,73 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+BAWAL — Weekends Hit Different
 
-# Run and deploy your AI Studio app
+A full-stack social entertainment and curated experience platform designed for modern weekend culture across Indian cities. Features automated ticket generation, transactional OTP auth, Neon PostgreSQL integration, and an isolated administrative control room.
 
-This contains everything you need to run your app locally.
+Core Features
 
-View your app in AI Studio: https://ai.studio/apps/05001a13-6695-4e35-b867-d18604d6c1ef
+Curated Experiences: Dynamic discovery and booking system for IRL gatherings, bowling socials, and competitive weekend events.
 
-## Run Locally
+Secured Admin Control Room: Dedicated administrative portal with PBKDF2 sha512 salted hashing, role enforcement (SUPER_ADMIN, ADMIN, STAFF), and session persistence.
 
-**Prerequisites:**  Node.js
+Passwordless Auth Flow: Email OTP verification powered by Resend with sliding window rate limiting and secure UUID session handling.
 
+Live Digital Passes: Instant QR ticket generation and pass storage linked directly to user profiles.
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Serverless SQL Engine: High-performance queries with connection pooling powered by Neon PostgreSQL.
+
+Tech Stack
+
+Frontend: React 19, TypeScript, Vite, Tailwind CSS, Lucide Icons
+
+Backend: Node.js, Express, TSX runtime
+
+Database: PostgreSQL via Neon Serverless
+
+Authentication: JWT, PBKDF2 Crypto Hashing, HttpOnly Cookies
+
+Integrations: Resend (Transactional Mail), PayU (Payments)
+
+Architecture Overview
+
+bawal-events/
+├── src/
+│   ├── components/      (UI components: Navbar, Footer, Modals)
+│   ├── pages/           (Client views: Landing, Experiences, Admin, Passes)
+│   ├── lib/             (AuthContext, API utilities, state handlers)
+│   └── server/
+│       ├── routes/      (Express API routers: auth, booking, admin)
+│       ├── auth.ts      (PBKDF2 hashing, OTP generation, JWT logic)
+│       └── db.ts        (PostgreSQL connection pool handling)
+├── schema.sql           (Production database schema)
+├── server.ts            (Application server entrypoint)
+└── vite.config.ts       (Frontend bundling config)
+
+Quick Start
+
+Clone and Install
+git clone https://github.com/Shauryasharmacg/bawal-events.git
+cd bawal-events
+npm install
+
+Environment Setup
+Create a .env file in the project root:
+
+NODE_ENV=development
+APP_URL=http://localhost:3000
+DATABASE_URL=postgresql://user:password@host/neondb?sslmode=require
+JWT_SECRET=your_super_secret_jwt_key
+ADMIN_DEFAULT_PASSWORD=your_admin_password
+RESEND_API_KEY=re_your_resend_key
+
+Database Initialization
+psql $DATABASE_URL -f schema.sql
+
+Run Locally
+npm run dev
+
+Security Highlights
+
+Database credentials and secrets are excluded from source control via .gitignore.
+
+Administrative endpoints strictly verify active account status and hashed cryptographic tokens on each request.
+
+Plaintext credentials and client-side demo bypasses are completely eliminated in production builds.
