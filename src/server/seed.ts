@@ -5,14 +5,19 @@ import crypto from 'node:crypto';
 export async function seedDatabase() {
   const db = await getDbClient();
 
+  const heroImageUrl = 'https://cdn.district.in/assets/events/publisher/event_gallery/01KTKV2BHFYR016Z0YQM5A6RF0.jpg';
+
   // Check if Event #001 already exists
   const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
   if (existingEvent.rows.length > 0) {
-    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699 and setting hero image...');
-    await db.query(`UPDATE events SET hero_image = '/bowling-hero.jpg' WHERE slug = 'bawal-001-the-bowling-social'`);
+    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699 and setting hero image CDN...');
+    await db.query(`UPDATE events SET hero_image = $1 WHERE slug = $2`, [
+      heroImageUrl,
+      'bawal-001-the-bowling-social'
+    ]);
     await db.query(`UPDATE ticket_types SET price = 599 WHERE id = 'tt_early_bird_001'`);
     await db.query(`UPDATE ticket_types SET price = 699 WHERE id = 'tt_regular_001'`);
-    console.log('[SEED] Hero image and ticket prices (₹599 / ₹699) successfully updated!');
+    console.log('[SEED] Hero image CDN and ticket prices (₹599 / ₹699) successfully updated!');
     return;
   }
 
@@ -102,7 +107,7 @@ export async function seedDatabase() {
       'Anyone who wants to meet new people, enjoy music, play bowling, take part in challenges and experience a different kind of social event. You can come with your friends or join individually and meet new people at the event.',
       100, // Total capacity
       'PUBLISHED',
-      '/bowling-hero.jpg',
+      heroImageUrl,
       JSON.stringify(gallery),
       'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3501.9961601053424!2d77.10842067640236!3d28.63220557566415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390d0322303530c3%3A0x628045610b271d43!2sPacific%20Mall%20Tagore%20Garden!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin',
     ]
