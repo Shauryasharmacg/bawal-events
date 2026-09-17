@@ -174,11 +174,11 @@ export const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ navigate
           </div>
           <div className="space-y-1">
             <div className="flex justify-between text-xs">
-              <span className="text-gray-400">Early Bird (₹500):</span>
+              <span className="text-gray-400">Early Bird:</span>
               <span className="font-bold text-white font-mono">{stats.earlyBirdSold || 0} / 20</span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-gray-400">Regular (₹600):</span>
+              <span className="text-gray-400">Regular:</span>
               <span className="font-bold text-white font-mono">{stats.regularSold || 0}</span>
             </div>
           </div>
