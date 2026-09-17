@@ -6,6 +6,7 @@ export async function seedDatabase() {
   const db = await getDbClient();
 
   const heroImageUrl = 'https://cdn.district.in/assets/events/publisher/event_gallery/01KTKV2BHFYR016Z0YQM5A6RF0.jpg';
+  const newSupportEmail = 'contact@bawalsocialclub.in'; // Yahan nayi support email daal sakte ho
 
   const highlights = [
     '🎳 Team Bowling Championship',
@@ -77,7 +78,8 @@ export async function seedDatabase() {
   // Check if Event #001 already exists
   const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
   if (existingEvent.rows.length > 0) {
-    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699, removing age limits, and setting hero image CDN...');
+    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699, removing age limits, setting hero image CDN, and updating platform settings...');
+    
     await db.query(
       `UPDATE events 
        SET hero_image = $1, rules = $2 
@@ -86,6 +88,13 @@ export async function seedDatabase() {
     );
     await db.query(`UPDATE ticket_types SET price = 599 WHERE id = 'tt_early_bird_001'`);
     await db.query(`UPDATE ticket_types SET price = 699 WHERE id = 'tt_regular_001'`);
+
+    // Platform settings support email update
+    try {
+      await db.query(`UPDATE platform_settings SET support_email = $1`, [newSupportEmail]);
+    } catch {
+      // Ignore if platform_settings table uses different columns
+    }
 
     // Refresh FAQs for existing event
     await db.query(`DELETE FROM event_faqs WHERE event_id = 'ev_bawal_001_bowling'`);
@@ -97,7 +106,7 @@ export async function seedDatabase() {
       );
     }
 
-    console.log('[SEED] Age restriction removed, FAQs refreshed, and prices/CDN image updated successfully!');
+    console.log('[SEED] Age restriction removed, FAQs refreshed, support email updated, and prices/CDN image updated successfully!');
     return;
   }
 
