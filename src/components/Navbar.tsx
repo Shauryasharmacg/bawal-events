@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAuth } from '../lib/auth-context.js';
-import { Ticket, User, Menu, X, ShieldAlert, LogOut } from 'lucide-react';
+import { Ticket, User, Menu, X, ShieldAlert, LogOut, MessageCircle } from 'lucide-react';
 import { BawalLogo } from './BawalLogo.js';
 
 interface NavbarProps {
@@ -14,9 +14,32 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
   const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   const handleNav = (path: string) => {
-    navigate(path);
     setMobileOpen(false);
     setUserMenuOpen(false);
+
+    // Hash links scroll handler (#about, #why)
+    if (path.includes('#')) {
+      const targetId = path.split('#')[1];
+
+      if (currentPath === '/' || currentPath === '') {
+        const el = document.getElementById(targetId);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth' });
+          return;
+        }
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          const el = document.getElementById(targetId);
+          if (el) {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 150);
+        return;
+      }
+    }
+
+    navigate(path);
   };
 
   return (
@@ -68,6 +91,18 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
 
           {/* Right Action Buttons */}
           <div className="hidden md:flex items-center gap-4">
+            {/* WhatsApp Quick Link */}
+            <a
+              href="https://wa.me/919811553213"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] text-xs font-semibold hover:bg-[#25D366]/20 transition-all"
+              title="Chat on WhatsApp"
+            >
+              <MessageCircle size={15} />
+              <span>WhatsApp</span>
+            </a>
+
             {/* If Admin logged in */}
             {admin && (
               <button
@@ -153,6 +188,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
 
           {/* Mobile menu toggle */}
           <div className="md:hidden flex items-center gap-2">
+            <a
+              href="https://wa.me/919811553213"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] active:scale-95 transition-transform"
+              title="WhatsApp"
+              aria-label="WhatsApp"
+            >
+              <MessageCircle size={18} />
+            </a>
             <button
               onClick={() => handleNav(user ? '/my-tickets' : '/login')}
               className="p-2.5 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl bg-[#060B22] border border-[#132252] text-white active:scale-95 transition-transform"
@@ -213,6 +258,16 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
           </div>
 
           <div className="pt-2 border-t border-[#0E1B4D] space-y-2">
+            <a
+              href="https://wa.me/919811553213"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-full min-h-[46px] py-3 rounded-xl bg-[#25D366]/10 border border-[#25D366]/30 text-[#25D366] text-sm font-semibold flex items-center justify-center gap-2"
+            >
+              <MessageCircle size={17} />
+              Chat on WhatsApp (9811553213)
+            </a>
+
             {user ? (
               <div className="space-y-1.5">
                 <button
@@ -235,6 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
                 <button
                   onClick={() => {
                     logout();
+                    setMobileOpen(false);
                     handleNav('/');
                   }}
                   className="w-full text-left px-3 py-2 text-xs text-red-400 hover:text-red-300 flex items-center gap-1.5"
@@ -252,8 +308,6 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
                 Sign In with OTP
               </button>
             )}
-
-            
 
             <button
               onClick={() => handleNav('/experiences/bawal-001-the-bowling-social')}

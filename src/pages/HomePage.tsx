@@ -46,8 +46,8 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
         {/* Background Visual Layer */}
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1545809074-59472b3f5ecc?auto=format&fit=crop&w=2000&q=80"
-            alt="BAWAL Social Nightlife"
+            src="https://cdn.district.in/assets/events/publisher/event_gallery/01KTKV2BHFYR016Z0YQM5A6RF0.jpg"
+            alt="BAWAL Social Bowling"
             className="w-full h-full object-cover opacity-25 scale-105 filter brightness-90 contrast-125"
           />
           {/* Radial & Angular Overlays */}
@@ -80,7 +80,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               </span>
             </h1>
             <p className="max-w-2xl mx-auto text-sm sm:text-lg text-gray-300 font-normal leading-relaxed px-2">
-              BAWAL creates social experiences where people come together to play, compete, connect and have a damn good time.
+              Bawal is a social club built for people who want to do more than just hang out. Come for the experience. Stay for the community.
             </p>
           </div>
 
@@ -165,35 +165,46 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             <div className="relative z-10 lg:col-span-8 space-y-4 sm:space-y-6">
               <span className="text-xs font-black text-[#3888FF] uppercase tracking-[0.2em] font-['Syne',sans-serif]">
-                The Social Movement
+                About Us
               </span>
               <h2 className="text-2xl xs:text-3xl sm:text-5xl font-black text-white font-['Syne',sans-serif] tracking-tight leading-snug">
-                A social experience platform built around pure fun, competition, and real connection.
+                What is Bawal?
               </h2>
-              <p className="text-gray-300 text-xs sm:text-base leading-relaxed">
-                We grew tired of the usual weekend routine of shouting over loud club speakers or scrolling endlessly at home. BAWAL crafts interactive, high-energy weekend gatherings where urban adults can bowl in nitro-lit alleys, team up with new strangers, compete for prizes, vibe to live acoustic sets, and leave with real memories and lifelong friends.
-              </p>
+              <div className="space-y-3 text-gray-300 text-xs sm:text-base leading-relaxed">
+                <p>
+                  Bawal is a social club built for people who want to do more than just hang out.
+                </p>
+                <p>
+                  We bring people together through experiences, games, challenges, and events designed to turn strangers into a crew and ordinary days into stories worth telling.
+                </p>
+                <p>
+                  From competitive socials to unexpected experiences, every Bawal event has its own energy, its own people, and its own kind of Bawal.
+                </p>
+                <p className="text-white font-semibold text-sm sm:text-lg pt-1">
+                  Come for the experience. Stay for the community.
+                </p>
+              </div>
 
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 pt-4 sm:pt-6">
                 <div className="p-3 sm:p-4 rounded-xl bg-[#0B1538] border border-[#1E3A8A]">
                   <Users size={18} className="text-[#3888FF] mb-1.5 sm:mb-2" />
                   <p className="font-extrabold text-white text-xs sm:text-sm">Real People</p>
-                  <p className="text-[10px] sm:text-[11px] text-gray-400">Come solo or with friends</p>
+                  <p className="text-[10px] sm:text-[11px] text-gray-400">Strangers into a crew</p>
                 </div>
                 <div className="p-3 sm:p-4 rounded-xl bg-[#0B1538] border border-[#1E3A8A]">
                   <Trophy size={18} className="text-[#60A5FA] mb-1.5 sm:mb-2" />
-                  <p className="font-extrabold text-white text-xs sm:text-sm">Championships</p>
-                  <p className="text-[10px] sm:text-[11px] text-gray-400">Team competition & prizes</p>
+                  <p className="font-extrabold text-white text-xs sm:text-sm">Challenges</p>
+                  <p className="text-[10px] sm:text-[11px] text-gray-400">Competitive socials</p>
                 </div>
                 <div className="p-3 sm:p-4 rounded-xl bg-[#0B1538] border border-[#1E3A8A]">
                   <Music size={18} className="text-[#3888FF] mb-1.5 sm:mb-2" />
                   <p className="font-extrabold text-white text-xs sm:text-sm">Live Music</p>
-                  <p className="text-[10px] sm:text-[11px] text-gray-400">Acoustic guitars & singers</p>
+                  <p className="text-[10px] sm:text-[11px] text-gray-400">High-energy vibes</p>
                 </div>
                 <div className="p-3 sm:p-4 rounded-xl bg-[#0B1538] border border-[#1E3A8A]">
                   <Flame size={18} className="text-[#60A5FA] mb-1.5 sm:mb-2" />
-                  <p className="font-extrabold text-white text-xs sm:text-sm">Nitro Glow</p>
-                  <p className="text-[10px] sm:text-[11px] text-gray-400">Animated bowling twists</p>
+                  <p className="font-extrabold text-white text-xs sm:text-sm">Unmatched Energy</p>
+                  <p className="text-[10px] sm:text-[11px] text-gray-400">Stories worth telling</p>
                 </div>
               </div>
             </div>
@@ -210,46 +221,52 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
 
       {/* 4. WHY BAWAL? */}
       <section id="why" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        <div className="text-center max-w-2xl mx-auto space-y-2">
+        <div className="text-center max-w-3xl mx-auto space-y-3">
           <span className="text-xs font-black text-[#3888FF] uppercase tracking-[0.2em] font-['Syne',sans-serif]">
-            Why Join Us
+            Why Bawal?
           </span>
           <h2 className="text-3xl sm:text-4xl font-extrabold text-white font-['Syne',sans-serif]">
-            Reasons Why Weekends Hit Different
+            Because the usual plans get boring.
           </h2>
+          <p className="text-gray-300 text-sm sm:text-base leading-relaxed">
+            Bawal is about breaking the routine and doing something different. We create experiences where you can meet new people, compete, play, laugh, and actually be part of the moment.
+          </p>
+          <p className="text-[#60A5FA] font-medium text-xs sm:text-sm">
+            No awkward introductions. No boring schedules. Just good people, unexpected experiences, and a little bit of Bawal.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {[
             {
-              title: 'Meet New People',
-              desc: 'Step into an easygoing space with zero awkwardness. Organic icebreakers and team challenges make connecting effortless.',
-              icon: Users,
-            },
-            {
-              title: 'Come Solo or With Friends',
-              desc: 'Over 60% of attendees arrive solo. We place you into energetic teams so you never feel alone for a single minute.',
-              icon: Compass,
-            },
-            {
-              title: 'Compete & Win',
-              desc: 'From team bowling championships to quickfire Bawal skill tests, every member of the winning team scores curated prizes.',
-              icon: Trophy,
-            },
-            {
-              title: 'Music & Entertainment',
-              desc: 'Curated live guitarists and vocalists playing acoustic singalongs between strikes and cheer moments.',
-              icon: Music,
-            },
-            {
-              title: 'Unique Experiences',
-              desc: 'Special Animated Nitro Glow Bowling rounds that elevate standard bowling into an electric spectacle.',
+              title: 'Break The Routine',
+              desc: 'Usual weekend plans get monotonous. We craft fresh social settings designed to do something genuinely different.',
               icon: Sparkles,
             },
             {
-              title: 'Build Community',
-              desc: 'Stay connected through our exclusive attendee group chats and VIP invites for future experiences.',
+              title: 'Zero Awkwardness',
+              desc: 'No forced networking or boring icebreakers. Activities and team play make meeting new people natural and fun.',
+              icon: Users,
+            },
+            {
+              title: 'Compete, Play & Win',
+              desc: 'Exciting team challenges, games, and genuine competitions where everyone stays engaged and part of the moment.',
+              icon: Trophy,
+            },
+            {
+              title: 'Good People, Pure Vibes',
+              desc: 'A curated crew of attendees who bring authentic energy, laughter, and high spirits to every gathering.',
               icon: Flame,
+            },
+            {
+              title: 'Unexpected Experiences',
+              desc: 'From nitro glow bowling to live music sets, every single event carries its own unique flair and twist.',
+              icon: Compass,
+            },
+            {
+              title: 'Community First',
+              desc: 'Come for an exciting weekend activity, stay for the friendships and exclusive access to upcoming social drops.',
+              icon: CheckCircle,
             },
           ].map((card, i) => {
             const Icon = card.icon;
@@ -295,7 +312,7 @@ export const HomePage: React.FC<HomePageProps> = ({ navigate }) => {
               tag: 'Live Sets',
             },
             {
-              img: 'https://images.unsplash.com/photo-1545809074-59472b3f5ecc?auto=format&fit=crop&w=800&q=80',
+              img: 'https://cdn.district.in/assets/events/publisher/event_gallery/01KTKV2BHFYR016Z0YQM5A6RF0.jpg',
               title: 'Nitro Glow Lanes',
               tag: 'Bowling Arena',
             },
