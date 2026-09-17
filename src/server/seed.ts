@@ -7,25 +7,6 @@ export async function seedDatabase() {
 
   const heroImageUrl = 'https://cdn.district.in/assets/events/publisher/event_gallery/01KTKV2BHFYR016Z0YQM5A6RF0.jpg';
 
-  // Check if Event #001 already exists
-  const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
-  if (existingEvent.rows.length > 0) {
-    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699 and setting hero image CDN...');
-    await db.query(`UPDATE events SET hero_image = $1 WHERE slug = $2`, [
-      heroImageUrl,
-      'bawal-001-the-bowling-social'
-    ]);
-    await db.query(`UPDATE ticket_types SET price = 599 WHERE id = 'tt_early_bird_001'`);
-    await db.query(`UPDATE ticket_types SET price = 699 WHERE id = 'tt_regular_001'`);
-    console.log('[SEED] Hero image CDN and ticket prices (₹599 / ₹699) successfully updated!');
-    return;
-  }
-
-  console.log('[SEED] Seeding BAWAL Event #001 and initial data...');
-
-  const eventId = 'ev_bawal_001_bowling';
-  const eventSlug = 'bawal-001-the-bowling-social';
-
   const highlights = [
     '🎳 Team Bowling Championship',
     '🏆 Prizes for the winning team',
@@ -50,7 +31,7 @@ export async function seedDatabase() {
   const rules = [
     'Please arrive 15 minutes before the 11:00 AM start time for team assignments.',
     'Bowling shoes will be provided at the venue (socks are mandatory).',
-    'Strictly 18+ event. Valid government photo ID is required at the entry check-in counter.',
+    'Open to all age groups! Valid photo ID is required at the entry check-in counter.',
     'Respect other participants and maintain good sportsmanship.',
     'Outside food or beverages are strictly not permitted.',
   ];
@@ -65,6 +46,65 @@ export async function seedDatabase() {
     'Chance to win prizes',
     'Socialising and networking',
   ];
+
+  const faqs = [
+    {
+      q: 'Can I come solo?',
+      a: 'Absolutely! More than 60% of our attendees come solo. We design teams and icebreaker challenges specifically so you meet awesome new people naturally without awkwardness.',
+    },
+    {
+      q: 'What if I have never bowled before?',
+      a: 'All skill levels are warmly welcome! The team scoring format ensures that excitement, teamwork, and laughter matter just as much as strikes. Plus, everyone gets to experience the fun Animated Nitro Bowling round.',
+    },
+    {
+      q: 'What is included with my pass?',
+      a: 'Your pass includes complete event entry, team championship rounds, Nitro bowling games, live musical performances by acoustic artists, special challenges, and 1 complimentary crafted mocktail.',
+    },
+    {
+      q: 'Is there an age limit?',
+      a: 'No, this event is open to all age groups! Bring along a valid photo ID for quick check-in at the desk.',
+    },
+    {
+      q: 'What is the refund and transfer policy?',
+      a: 'Tickets are non-refundable. However, you can transfer your ticket to a friend up to 24 hours prior to the event by contacting our support team at @bawal.social.',
+    },
+    {
+      q: 'What shoes do I need to wear?',
+      a: 'Standard bowling shoes are provided free of cost at the alley. Please remember to wear or carry a pair of clean socks!',
+    },
+  ];
+
+  // Check if Event #001 already exists
+  const existingEvent = await db.query(`SELECT id FROM events WHERE slug = $1`, ['bawal-001-the-bowling-social']);
+  if (existingEvent.rows.length > 0) {
+    console.log('[SEED] Event #001 already exists. Updating ticket prices to ₹599 & ₹699, removing age limits, and setting hero image CDN...');
+    await db.query(
+      `UPDATE events 
+       SET hero_image = $1, rules = $2 
+       WHERE slug = $3`,
+      [heroImageUrl, JSON.stringify(rules), 'bawal-001-the-bowling-social']
+    );
+    await db.query(`UPDATE ticket_types SET price = 599 WHERE id = 'tt_early_bird_001'`);
+    await db.query(`UPDATE ticket_types SET price = 699 WHERE id = 'tt_regular_001'`);
+
+    // Refresh FAQs for existing event
+    await db.query(`DELETE FROM event_faqs WHERE event_id = 'ev_bawal_001_bowling'`);
+    for (let i = 0; i < faqs.length; i++) {
+      await db.query(
+        `INSERT INTO event_faqs (id, event_id, question, answer, display_order)
+         VALUES ($1, $2, $3, $4, $5)`,
+        [crypto.randomUUID(), 'ev_bawal_001_bowling', faqs[i].q, faqs[i].a, i + 1]
+      );
+    }
+
+    console.log('[SEED] Age restriction removed, FAQs refreshed, and prices/CDN image updated successfully!');
+    return;
+  }
+
+  console.log('[SEED] Seeding BAWAL Event #001 and initial data...');
+
+  const eventId = 'ev_bawal_001_bowling';
+  const eventSlug = 'bawal-001-the-bowling-social';
 
   const gallery = [
     'https://images.unsplash.com/photo-1545809074-59472b3f5ecc?auto=format&fit=crop&w=1200&q=80',
@@ -105,7 +145,7 @@ export async function seedDatabase() {
       JSON.stringify(rules),
       JSON.stringify(whatsIncluded),
       'Anyone who wants to meet new people, enjoy music, play bowling, take part in challenges and experience a different kind of social event. You can come with your friends or join individually and meet new people at the event.',
-      100, // Total capacity
+      100,
       'PUBLISHED',
       heroImageUrl,
       JSON.stringify(gallery),
@@ -156,34 +196,6 @@ export async function seedDatabase() {
       JSON.stringify(['Solo (Place me in a fun team!)', 'With Friends (We want to bowl together)']),
     ]
   );
-
-  // Event FAQs
-  const faqs = [
-    {
-      q: 'Can I come solo?',
-      a: 'Absolutely! More than 60% of our attendees come solo. We design teams and icebreaker challenges specifically so you meet awesome new people naturally without awkwardness.',
-    },
-    {
-      q: 'What if I have never bowled before?',
-      a: 'All skill levels are warmly welcome! The team scoring format ensures that excitement, teamwork, and laughter matter just as much as strikes. Plus, everyone gets to experience the fun Animated Nitro Bowling round.',
-    },
-    {
-      q: 'What is included with my pass?',
-      a: 'Your pass includes complete event entry, team championship rounds, Nitro bowling games, live musical performances by acoustic artists, special challenges, and 1 complimentary crafted mocktail.',
-    },
-    {
-      q: 'Is there an age limit?',
-      a: 'Yes, this experience is designed for attendees aged 18 and above. Please bring a valid government ID for entry verification.',
-    },
-    {
-      q: 'What is the refund and transfer policy?',
-      a: 'Tickets are non-refundable. However, you can transfer your ticket to a friend up to 24 hours prior to the event by contacting our support team at @bawal.social.',
-    },
-    {
-      q: 'What shoes do I need to wear?',
-      a: 'Standard bowling shoes are provided free of cost at the alley. Please remember to wear or carry a pair of clean socks!',
-    },
-  ];
 
   for (let i = 0; i < faqs.length; i++) {
     await db.query(
