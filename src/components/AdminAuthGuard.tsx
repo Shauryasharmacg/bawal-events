@@ -80,7 +80,7 @@ export const AdminAuthGuard: React.FC<AdminAuthGuardProps> = ({ navigate }) => {
         <div className="p-6 rounded-3xl bg-[#060B22] border border-[#132252] space-y-5">
           <div className="flex items-center justify-between border-b border-[#132252] pb-3 text-xs">
             <span className="font-bold text-gray-300 uppercase tracking-wider">
-              Or Enter Staff Credentials
+              Enter Staff Credentials
             </span>
             <span className="text-[10px] text-gray-500 font-mono">Role: ADMIN / STAFF</span>
           </div>
