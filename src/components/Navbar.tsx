@@ -103,16 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, navigate }) => {
               <span>WhatsApp</span>
             </a>
 
-            {/* If Admin logged in */}
-            {admin && (
-              <button
-                onClick={() => handleNav('/admin/dashboard')}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#0038FF]/20 border border-[#0038FF]/40 text-[#60A5FA] text-xs font-semibold hover:bg-[#0038FF]/30 transition-all"
-              >
-                <ShieldAlert size={14} />
-                Admin Panel
-              </button>
-            )}
+
 
             {/* My Tickets Button */}
             <button
