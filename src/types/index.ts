@@ -41,6 +41,7 @@ export interface CustomField {
   displayOrder: number;
 }
 
+//-------------------------------------------
 export interface EventItem {
   id: string;
   slug: string;
