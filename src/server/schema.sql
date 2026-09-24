@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS events (
   event_number TEXT NOT NULL, -- e.g. "BAWAL #001"
   title TEXT NOT NULL,
   subtitle TEXT,
-  date_str TEXT NOT NULL, -- "11/10/26"
+  date_str TEXT NOT NULL, -- "10/10/26"
   start_time TEXT NOT NULL, -- "11:00 AM"
   end_time TEXT NOT NULL, -- "2:00 PM"
   venue TEXT NOT NULL,

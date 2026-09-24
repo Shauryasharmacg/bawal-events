@@ -47,7 +47,7 @@ export interface EventItem {
   eventNumber: string; // "BAWAL #001"
   title: string; // "The Bowling Social"
   subtitle?: string;
-  dateStr: string; // "11/10/26"
+  dateStr: string; // "10/10/26"
   startTime: string; // "11:00 AM"
   endTime: string; // "2:00 PM"
   venue: string; // "Dave & Buster’s Pacific Mall"

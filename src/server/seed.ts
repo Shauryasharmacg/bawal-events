@@ -141,7 +141,7 @@ export async function seedDatabase() {
       'BAWAL #001',
       'The Bowling Social',
       'Bowling + Social Experience + Live Music + Nitro Glow',
-      '11/10/26',
+      '10/10/26',
       '11:00 AM',
       '2:00 PM',
       'Dave & Buster’s Pacific Mall',
