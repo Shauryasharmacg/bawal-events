@@ -37,7 +37,7 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigate }) => {
           </span>
           {isEarlyBirdActive && !isSoldOut && (
             <span className="px-3 py-1 rounded-full bg-[#0038FF] text-white font-black text-xs tracking-wider flex items-center gap-1 shadow-md animate-pulse">
-              <Flame size={13} />
+              
               EARLY BIRD ₹599
             </span>
           )}
@@ -52,7 +52,6 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigate }) => {
           ) : (
             <span className="px-3 py-1 rounded-lg bg-[#0B1538]/90 backdrop-blur-md border border-[#1E3A8A] text-[#60A5FA] font-bold text-xs flex items-center gap-1.5 shadow-md">
               <Users size={13} />
-              {event.remainingSpots} spots left
             </span>
           )}
         </div>
