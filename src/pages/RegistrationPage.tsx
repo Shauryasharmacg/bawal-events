@@ -289,7 +289,7 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ slug, naviga
                 <input
                   type="number"
                   required
-                  min={18}
+                  min={1}
                   max={99}
                   placeholder="24"
                   value={age}
