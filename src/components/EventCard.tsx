@@ -11,7 +11,8 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigate }) => {
   // Find lowest price
   const prices = event.ticketTypes?.map((t) => t.price) || [500];
   const minPrice = Math.min(...prices);
-
+  const isEarlyBirdActive = false;
+const isSoldOut = false;
 
   return (
     <div className="group relative bg-[#060B22] rounded-2xl border border-[#132252] overflow-hidden hover:border-[#0038FF]/60 transition-all duration-300 hover:shadow-2xl hover:shadow-[#0038FF]/20 flex flex-col">
@@ -29,11 +30,12 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigate }) => {
         {/* Top Badges */}
         <div className="absolute top-4 left-4 flex flex-wrap gap-2">
           <span className="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md border border-[#1E3A8A] text-white font-extrabold text-xs tracking-wider font-['Syne',sans-serif]">
-            {event.eventNumber}
+            {event?.eventNumber}
           </span>
-          {isEarlyBirdActive && !isSoldOut && (
+          
+          {/* FIX: Safely checking event data instead of undefined variables so it never crashes */}
+          {event?.ticketTypes?.some((t: any) => String(t.name).toLowerCase().includes('early bird')) && (
             <span className="px-3 py-1 rounded-full bg-[#0038FF] text-white font-black text-xs tracking-wider flex items-center gap-1 shadow-md animate-pulse">
-              
               EARLY BIRD ₹599
             </span>
           )}
