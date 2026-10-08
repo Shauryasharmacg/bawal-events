@@ -199,11 +199,10 @@ export const RegistrationPage: React.FC<RegistrationPageProps> = ({ slug, naviga
 
         {/* Spot capacity reminder */}
         <div className="text-left sm:text-right border-t sm:border-t-0 sm:border-l border-[#132252] pt-3 sm:pt-0 sm:pl-6">
-          <span className="text-[11px] text-gray-400 uppercase tracking-wider block">Availability</span>
+          <span className="text-[11px] text-gray-400 uppercase tracking-wider block"></span>
           <span className="text-2xl font-black text-[#60A5FA] font-mono block">
-            {event.remainingSpots} / {event.totalCapacity}
+            
           </span>
-          <span className="text-[11px] text-gray-400">spots left</span>
         </div>
       </div>
 

@@ -12,10 +12,6 @@ export const EventCard: React.FC<EventCardProps> = ({ event, navigate }) => {
   const prices = event.ticketTypes?.map((t) => t.price) || [500];
   const minPrice = Math.min(...prices);
 
-  // Early Bird availability check
-  const earlyBirdTier = event.ticketTypes?.find((t) => t.name.toLowerCase().includes('early bird'));
-  const isEarlyBirdActive = earlyBirdTier && earlyBirdTier.remainingCount > 0;
-  const isSoldOut = event.remainingSpots <= 0 || event.status === 'SOLD_OUT';
 
   return (
     <div className="group relative bg-[#060B22] rounded-2xl border border-[#132252] overflow-hidden hover:border-[#0038FF]/60 transition-all duration-300 hover:shadow-2xl hover:shadow-[#0038FF]/20 flex flex-col">

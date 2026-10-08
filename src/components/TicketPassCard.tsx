@@ -60,9 +60,7 @@ export const TicketPassCard: React.FC<TicketPassCardProps> = ({
             {pass.name}
           </h4>
           <span className="text-xs text-gray-400">
-            {isSoldOut
-              ? 'Tier Sold Out'
-              : `${pass.remainingCount} spots available at this price`}
+            
           </span>
         </div>
         <div className="text-right">
